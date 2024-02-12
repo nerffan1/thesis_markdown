@@ -1,0 +1,28 @@
+---
+pagetitle: This is the HTML document title
+title: A Heuristics-Based Approach to the Prediction of FODs in Fermi-Lowdin Orbital Self Interaction Correction (FLOSIC) Theory
+subtitle:
+author: Angel-Emilio Villegas Sanchez
+date: February 2024
+location: Central Michigan University
+supervisor:
+- Dr. Juan Ernesto Peralta
+- Dr. Koblar Alan Jackson
+degree: Master's of Science
+eqnPrefix:
+  - "Equation"
+  - "Equations"
+figPrefix:
+  - "Figure"
+  - "Figures"
+secPrefix:
+  - "Section"
+  - "Sections"
+tblPrefix:
+  - "Table"
+  - "Tables"
+lstPrefix:
+  - "Listing"
+  - "Listings"
+codeBlockCaptions: true
+---

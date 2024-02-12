@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/8c1cb3fa-5b81-45b2-be94-aeb6e3d51b20/central-michigan-university-logo-2.eps?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20240211%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20240211T082129Z&X-Amz-Expires=86400&X-Amz-Signature=029affb5d0ff6225eb723e1bd2709ded1e7e004391122258131d2018deacdbf0&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22central-michigan-university-logo-2.eps%22&response-content-type=application%2Fpostscript&x-id=GetObject

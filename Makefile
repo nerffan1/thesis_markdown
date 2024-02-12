@@ -1,8 +1,8 @@
-PY=python
+PY=python3
 PANDOC=pandoc
 
 BASEDIR=$(CURDIR)
-INPUTDIR=$(BASEDIR)/source
+INPUTDIR=$(BASEDIR)/thesissrc
 OUTPUTDIR=$(BASEDIR)/output
 TEMPLATEDIR=$(INPUTDIR)/templates
 STYLEDIR=$(BASEDIR)/style
@@ -42,7 +42,8 @@ endif
 
 pdf:
 	pandoc  \
-		--output "$(OUTPUTDIR)/thesis.pdf" \
+		-s \
+		--output "$(OUTPUTDIR)/angeldraft.pdf" \
 		--template="$(STYLEDIR)/template.tex" \
 		--include-in-header="$(STYLEDIR)/preamble.tex" \
 		--variable=fontsize:12pt \
@@ -60,7 +61,7 @@ pdf:
 		--number-sections \
 		--verbose \
 		2>pandoc.pdf.log
-
+	wslview output/angeldraft.pdf
 tex:
 	pandoc  \
 		--output "$(OUTPUTDIR)/thesis.tex" \
