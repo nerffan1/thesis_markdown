@@ -18,7 +18,7 @@
 
 ### Implementation Details
 - Describe code structure and use of object-oriented design
-- Describe fundamental as seen in @fig:classdiag
+- Describe fundamental as seen in [@fig:classdiag]
 
 ![classes](source/figures/classes.png){#fig:classdiag}
 
@@ -35,14 +35,11 @@
 ## A Data-driven Approach to analyzing FODs
 
 ### Reverse Determination of Parameters 
-% Use the program to determine the parameters from FLOSIC-optimized FODs. Now we can use angles and relative distances (FOD-FOD distances that are part of a Shell schema) to better characterize FOD arrangement.
+<!-- Use the program to determine the parameters from FLOSIC-optimized FODs. Now we can use angles and relative distances (FOD-FOD distances that are part of a Shell schema) to better characterize FOD arrangement. -->
 This is the following implementation used for the reverse determination of parameters
 
 ```{=latex}
-\RestyleAlgo{boxruled}
 \begin{algorithm}[H]
-\SetAlgoLined
-\DontPrintSemicolon
  \KwData{Relaxed FODs $R_n$}
  \For{FOD in Predicted FODs}{
   Save closest $R_n$ to FOD as $R_{close}$\;
@@ -55,9 +52,9 @@ This is the following implementation used for the reverse determination of param
 #### Free FODs (FFODs)
 The free-direction, described in section XYZ, cannot be determined exactly. In order to best compare Free FODs in this parameter-based scheme, I propose using only an average direction formed from the average of all FFOD vectors and use an evaluation function. A cosine distance is too flat near its maximum, so a custom  function can offer a more strict metric of our prediction
 
-$$ f(\theta) = 1 - \frac{4\theta}{\pi} $$ {#eq:customm}
+$$f(\theta) = 1 - 1/2$${#eq:customm}
 
-Function @eq:customm yields 1 when there at $0$ degrees between the vectors, and 0 when there are $45$ degrees between the vectors.  
+Equation [@eq:customm] yields 1 when there at $0$ degrees between the vectors, and 0 when there are $45$ degrees between the vectors.  
 
 
 ### A database of compiled FOD Data 

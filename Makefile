@@ -58,9 +58,7 @@ pdf:
 		--bibliography="$(BIBFILE)" \
 		--citeproc \
 		--csl="$(STYLEDIR)/ref_format.csl" \
-		--number-sections \
-		--verbose \
-		2>pandoc.pdf.log
+		--shift-heading-level-by=1
 	wslview output/angeldraft.pdf
 tex:
 	pandoc  \
