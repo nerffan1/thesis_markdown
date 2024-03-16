@@ -1,12 +1,13 @@
 \documentclass[12pt,a4paper,]{report}
 \usepackage{lmodern}
 
+
 % Overwrite \begin{figure}[htbp] with \begin{figure}[H]
 \usepackage{float}
 \let\origfigure=\figure
 \let\endorigfigure=\endfigure
 \renewenvironment{figure}[1][]{%
-\origfigure[b]
+\origfigure[H]
 }{%
 \endorigfigure
 }
@@ -70,8 +71,8 @@
 \fi
 \hypersetup{breaklinks=true,
             bookmarks=true,
-            pdfauthor={Firstname Surname},
-            pdftitle={This is the title of the thesis},
+            pdfauthor={Angel-Emilio Villegas Sanchez},
+            pdftitle={A Heuristics-Based Approach to the Prediction of FODs in Fermi-Lowdin Orbital Self Interaction Correction (FLOSIC) Theory},
             colorlinks=true,
             citecolor=blue,
             urlcolor=blue,
@@ -93,8 +94,10 @@
 
 % Headers and page numbering
 \usepackage{fancyhdr}
-\pagestyle{plain}
-
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
 % Following package is used to add background image to front page
 \usepackage{wallpaper}
 
@@ -131,6 +134,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{color}
+%Addtional Packages
+\usepackage[ruled, vlined]{algorithm2e}
+\setlength{\algomargin}{1em}
 
 % JAVA CODE BLOCKS
 %\definecolor{backcolour}{RGB}{242,242,242}
@@ -172,9 +178,10 @@
 % HEADINGS
 \usepackage{sectsty}
 \usepackage[normalem]{ulem}
-\sectionfont{\rmfamily\mdseries\Large}
-\subsectionfont{\rmfamily\mdseries\scshape\large}
-\subsubsectionfont{\rmfamily\bfseries\upshape\large}
+\sectionfont{\bfseries\centering} %Centered, Bold
+\subsectionfont{\bfseries\raggedright} % Bold
+\subsubsectionfont{\bfseries\itshape} %Bold Italic
+\paragraphfont{\bfseries\raggedright}
 % \sectionfont{\rmfamily\mdseries\Large}
 % \subsectionfont{\rmfamily\mdseries\scshape\normalsize}
 % \subsubsectionfont{\rmfamily\bfseries\upshape\normalsize}
@@ -191,7 +198,7 @@
 \raggedbottom
 
 % Set margins
-\usepackage[top=1.5in,bottom=1.5in,left=1.5in,right=1.4in]{geometry}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
 \setlength\parindent{0.5in} % indent at start of paragraphs (set to 0.3?)
 \setlength{\parskip}{9pt}
 \usepackage{indentfirst}
@@ -274,41 +281,37 @@
 
 \begin{document}
 
-
 \begin{titlepage}
     \begin{center}
 
     % Delete the following line
     % to remove the UCL header logo
-    \ThisULCornerWallPaper{1.0}{style/univ_logo.eps}
+    \ThisULCornerWallPaper{0.1}{style/univ_logo.eps}
 
         \vspace*{2.5cm}
 
         \huge
-        This is the title of the thesis
+        A Heuristics-Based Approach to the Prediction of FODs in
+        Fermi-Lowdin Orbital Self Interaction Correction (FLOSIC) Theory
 
-                \vspace{.5cm}
-
-        \Large
-        This is the subtitle of the thesis
         
 
         \vspace{1.5cm}
 
         \Large
-        Firstname Surname
+        Angel-Emilio Villegas Sanchez
 
         \vspace{1.5cm}
 
         \normalsize
         A thesis presented for the degree of\\
-        Doctor of Philosophy
+        Master's of Science
 
         \vfill
 
         \normalsize
         Supervised by:\\
-        Professor Louis Fage \\ Captain J. Y. Cousteau
+        Dr.~Juan Ernesto Peralta \\ Dr.~Koblar Alan Jackson
 
         \vspace{0.8cm}
 
@@ -317,8 +320,8 @@
         % \includegraphics[width=0.4\textwidth]{style/univ_logo.eps}
 
         \normalsize
-        University College London, UK\\
-        January 2015
+        Central Michigan University\\
+        February 2024
 
         % Except where otherwise noted, content in this thesis is licensed under a Creative Commons Attribution 4.0 License (http://creativecommons.org/licenses/by/4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited. Copyright 2015,Tom Pollard.
 
@@ -327,49 +330,9 @@
 
 
 % This is where the converted markdown files will go 
-\chapter*{Abstract}\label{abstract}
-\addcontentsline{toc}{chapter}{Abstract}
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et turpis
-gravida, lacinia ante sit amet, sollicitudin erat. Aliquam efficitur
-vehicula leo sed condimentum. Phasellus lobortis eros vitae rutrum
-egestas. Vestibulum ante ipsum primis in faucibus orci luctus et
-ultrices posuere cubilia Curae; Donec at urna imperdiet, vulputate orci
-eu, sollicitudin leo. Donec nec dui sagittis, malesuada erat eget,
-vulputate tellus. Nam ullamcorper efficitur iaculis. Mauris eu vehicula
-nibh. In lectus turpis, tempor at felis a, egestas fermentum massa.
-
-\pagenumbering{roman}
-\setcounter{page}{1}
-
-\chapter*{Acknowledgements}\label{acknowledgements}
-\addcontentsline{toc}{chapter}{Acknowledgements}
-
-I'd like to thank my proffessors Dr.~Juan Ernesto Peralta and Dr.~Koblar
-Alan Jackson, my family, and my future wife, Philana, for all their
-support, patience, and teachings through the course of this project.
-
-\newpage
-
-\pagenumbering{gobble}
+\pagenumbering{arabic}
 
 \tableofcontents
-
-\newpage
-
-\vspace*{\fill}
-
-\noindent \textit{
-I, AUTHORNAME confirm that the work presented in this thesis is my own. Where information has been derived from other sources, I confirm that this has been indicated in the thesis.
-} \vspace*{\fill} \pagenumbering{gobble} \newpage
-
-\chapter*{Abbreviations}\label{abbreviations}
-\addcontentsline{toc}{chapter}{Abbreviations}
-
-\begin{tabbing}
-\textbf{API}~~~~~~~~~~~~ \= \textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface \\  
-\textbf{JSON} \> \textbf{J}ava\textbf{S}cript \textbf{O}bject \textbf{N}otation \\  
-\end{tabbing}
 
 \newpage
 
@@ -378,59 +341,321 @@ I, AUTHORNAME confirm that the work presented in this thesis is my own. Where in
 \section{Density-Functional Theory
 (DFT)}\label{density-functional-theory-dft}
 
+\subsection{Hohenberg-Kohn Theorems}\label{hohenberg-kohn-theorems}
+
+\subsection{Kohn-Sham Formulation}\label{kohn-sham-formulation}
+
+\subsection{Limitations of DFT}\label{limitations-of-dft}
+
 \section{The Self-Interaction Error
 (SIC)}\label{the-self-interaction-error-sic}
 
+\subsection{Perdew-Zunger SIC}\label{perdew-zunger-sic}
+
 \section{The FLOSIC Method}\label{the-flosic-method}
 
-\subsection{The Fermi-Lowdin Orbital}\label{the-fermi-lowdin-orbital}
+\subsection{The Fermi-Lowdin Orbital
+(FLOs)}\label{the-fermi-lowdin-orbital-flos}
+
+The following transformation of the canonical orbitals is
+Equation~\ref{eq:FLO}
+
+\begin{equation}\protect\hypertarget{eq:FLO}{}{F_i(\mathbf{r})=\sum_j^N \frac{\psi_j^*\left(\mathbf{a}_i\right) \psi_j(\mathbf{r})}{\sqrt{n\left(\mathbf{a}_i\right)}}}\label{eq:FLO}\end{equation}
+
+\subsection{The Fermi-Lowdin Orbital Descriptors
+(FODs)}\label{the-fermi-lowdin-orbital-descriptors-fods}
+
+\section{The NRLMOL Code}\label{the-nrlmol-code}
 
 \begin{itemize}
 \tightlist
 \item
-  This is a sample list
-\item
-  Another smaple list! hahahha
+  Describe the code and status of usability
 \end{itemize}
 
-Anyways, this is a new paragraph
+\subsection{Overview of Code}\label{overview-of-code}
 
-\subsection{The Fermi-Lowdin Orbital
-Descriptors}\label{the-fermi-lowdin-orbital-descriptors}
+\begin{itemize}
+\tightlist
+\item
+  Big-picture description of how the code works.
+\end{itemize}
 
-This is a sample table:
+\subsection{FOD Determination and Practical
+Considerations}\label{fod-determination-and-practical-considerations}
 
-\begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1111}}
-  >{\raggedleft\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2222}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3611}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\centering
-Centered Header
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Default Aligned
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Right Aligned
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Left Aligned
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-First & row & 12.0 & Example of a row that spans multiple lines. \\
-Second & row & 5.0 & Here's another one. Note the blank line between
-rows. \\
-\end{longtable}
+\begin{itemize}
+\tightlist
+\item
+  Describe methods used to input FODs into the FLOSIC program.
+\item
+  Prime motivation behind this project: an automated and faster process
+  to begin calculations, informed from ``empirical'' data, capable to
+  extending to larger systems.
+\end{itemize}
 
-ok, thank you table! This is some math
-\[x = \frac{Gm_1m_2}{\sqrt{x^2+y^2}}\].
+\section{FOD Geometric Motifs}\label{fod-geometric-motifs}
+
+\begin{itemize}
+\tightlist
+\item
+  Describe how FODs arrange themselves similar to LDQ Theory. This
+  (emergent?) behavior makes it
+\end{itemize}
+
+As noted in paper X, optimized FODs get arranged in geometries similar
+to Thompson structures. This regular structure is most apparent in
+monoatomic systems, but the reagular FOD arrangement distorts in the
+presence of additional atoms.
+
+\subsection{SP3 Arrangements}\label{sp3-arrangements}
+
+\subsection{SP3D Arrangement}\label{sp3d-arrangement}
+
+\subsection{Dominance Schema}\label{dominance-schema}
+
+\begin{itemize}
+\tightlist
+\item
+  Sometimes FODs are closer to atoms that are of lesser atomic number
+  \(Z\) than the neighbouring heavier atoms. This could be attributed to
+  shielding caused by the filled shells of periods 3 and above. The
+  behavior is described in Figure~\ref{fig:dominance}. This will play a
+  special part in the prediction of bonding FODs.
+\end{itemize}
 
 \begin{figure}
+\hypertarget{fig:dominance}{%
 \centering
-\includegraphics{https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781982185824/im-glad-my-mom-died-9781982185824_xlg.jpg}
-\caption{This is the caption}
+\includegraphics{source/figures/dominance.png}
+\caption{dominance}\label{fig:dominance}
+}
 \end{figure}
+
+\chapter{The FOD-Lego Program}\label{the-fod-lego-program}
+
+\begin{itemize}
+\tightlist
+\item
+  Note: Different name needed probably
+\end{itemize}
+
+\section{General Overview}\label{general-overview}
+
+\begin{itemize}
+\tightlist
+\item
+  Give a \textbf{Big-Picture} overview as seen in image
+  Figure~\ref{fig:overview}
+\end{itemize}
+
+\begin{figure}
+\hypertarget{fig:overview}{%
+\centering
+\includegraphics{source/figures/overview.png}
+\caption{overview}\label{fig:overview}
+}
+\end{figure}
+
+\subsection{A Heuristic-Based Approach to FOD
+Placement}\label{a-heuristic-based-approach-to-fod-placement}
+
+\begin{itemize}
+\tightlist
+\item
+  How can Heuristics help in computational problems?
+\end{itemize}
+
+\subsection{Monoatomic Calculations}\label{monoatomic-calculations}
+
+\begin{itemize}
+\tightlist
+\item
+  Talk about \emph{Dynamic Programming} and how monoatomic geometries
+  could be pieced together in modular fashion (Lego-like).
+\end{itemize}
+
+\subsection{Reparametrizing the FOD
+geometries}\label{reparametrizing-the-fod-geometries}
+
+\begin{itemize}
+\tightlist
+\item
+  sp3 shells stop being perfect tetrahedra and become irregular in the
+  presence of other atoms.
+\item
+  Describe how to parametrize FODs in irregular tetrahedra for the sp3
+  shells.
+\end{itemize}
+
+\subsection{Implementation Details}\label{implementation-details}
+
+\begin{itemize}
+\tightlist
+\item
+  Describe code structure and use of object-oriented design
+\item
+  Describe fundamental as seen in Figure~\ref{fig:classdiag}
+\end{itemize}
+
+\begin{figure}
+\hypertarget{fig:classdiag}{%
+\centering
+\includegraphics{source/figures/classes.png}
+\caption{classes}\label{fig:classdiag}
+}
+\end{figure}
+
+\section{Determination of FODs}\label{determination-of-fods}
+
+\begin{itemize}
+\tightlist
+\item
+  Describe the different determination heuristics for different types of
+  FODs
+\end{itemize}
+
+\subsection{Bonding FODs (BFOD)}\label{bonding-fods-bfod}
+
+\subsection{Core FODs (CFOD)}\label{core-fods-cfod}
+
+\subsection{Free FODs (FFOD)}\label{free-fods-ffod}
+
+\begin{itemize}
+\tightlist
+\item
+  Sample Diagram and calculation for Double-FFOD (DFFOD) Heuristic in
+  Figure~\ref{fig:sample}. The edge distance is applied to as a
+  restriction.
+\end{itemize}
+
+\begin{figure}
+\hypertarget{fig:sample}{%
+\centering
+\includegraphics{source/figures/sample.jpg}
+\caption{draft DFFOD}\label{fig:sample}
+}
+\end{figure}
+
+\section{A Data-driven Approach to analyzing
+FODs}\label{a-data-driven-approach-to-analyzing-fods}
+
+\subsection{Reverse Determination of
+Parameters}\label{reverse-determination-of-parameters}
+
+This is the following implementation used for the reverse determination
+of parameters
+
+\begin{algorithm}[H]
+ \KwData{ \{$T_n$ | Target FODs\}, \{$P_n$ | Predicted FODs\}}
+ \For{$P_n$ in Predicted FODs}{
+  Save closest $T_i$ to FOD as $T_{close}$\;
+  Initialize a new FOD with $T_{close}$\, $N_n$;
+  }
+  Reverse Determine parameters for all $N_n$;
+ \caption{Reverse Parameter Determination Basic Sequence}
+\end{algorithm}
+
+\subsubsection{Free FODs (FFODs)}\label{free-fods-ffods}
+
+The free-direction, described in section XYZ, cannot be determined
+exactly. In order to best compare Free FODs in this parameter-based
+scheme, I propose using only an average direction formed from the
+average of all FFOD vectors and use an evaluation function. A cosine
+distance is too flat near its maximum, so a custom function can offer a
+more strict metric of our prediction
+
+\begin{equation}\protect\hypertarget{eq:customm}{}{f(\theta) = 1 - \frac{6}{\pi}\theta}\label{eq:customm}\end{equation}
+
+Equation~\ref{eq:customm} yields unity when there at \(0\) degrees
+between the vectors, and 0 when there are \(30\) degrees between the
+vectors.
+
+\subsection{A database of compiled FOD
+Data}\label{a-database-of-compiled-fod-data}
+
+\begin{itemize}
+\tightlist
+\item
+  No current database of FODs. Seeking to create a database
+\item
+  \textbf{TODO!}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Design structure of database
+  \item
+    Using FODLego, then FLOSIC, create optimized structures for a
+    selection of molecules (scope?)
+  \end{itemize}
+\end{itemize}
+
+\chapter{Validity of FOD Prediction}\label{validity-of-fod-prediction}
+
+Explore the predictions done by FODLego
+
+\section{Comparison of Heuristic FODs to FLOSIC-Optimized
+FODs}\label{comparison-of-heuristic-fods-to-flosic-optimized-fods}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{TODO:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Create scatter plots for different parameters described in the
+    scheme of previous section.
+  \end{itemize}
+\end{itemize}
+
+\section{Comparison to FOD-MC}\label{comparison-to-fod-mc}
+
+\section{Biasing Predictions after Sampling
+(?)}\label{biasing-predictions-after-sampling}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Assuming data follows certain trends, we can further modify the
+    predictions used in FODLego. For example, the tightening of closed
+    shells in heavier atoms in the presence of the next shell closed.
+  \end{itemize}
+\end{itemize}
+
+\chapter{Discussion/Conclusions}\label{discussionconclusions}
+
+\section{Limitations}\label{limitations}
+
+\subsection{Assumptions}\label{assumptions}
+
+\begin{itemize}
+\tightlist
+\item
+  Explore assumptions such as First neighbors are mainly considered in
+  this scheme.
+\end{itemize}
+
+\subsection{Automated Bonding
+Prediction}\label{automated-bonding-prediction}
+
+\section{For Future Implementation}\label{for-future-implementation}
+
+\subsection{Extending modularity to metal
+FODs?}\label{extending-modularity-to-metal-fods}
+
+\begin{itemize}
+\tightlist
+\item
+  Talk about possible parametrization of the \emph{Triaugmented
+  Triangular Prism} composed of 9 FODs.
+\end{itemize}
+
+\subsection{Spin-Unpolarized
+Prediction}\label{spin-unpolarized-prediction}
 
 \end{document}
