@@ -1,6 +1,7 @@
 # Introduction
 ## Density-Functional Theory (DFT)
 Density Functional Theory's principal tenet holds that any property of a system of interacting particles can be seen as a fucntional of the ground state density [@Martin]. Precurse theory includes Thomas-Fermi theory which looked at the density of systems to calculate its energy. However, it was not until 1965 that Pierre Hohenberg and Walter Kohn formalized the theory.
+
 ### Hohenberg-Kohn Theorems
 
 ### Kohn-Sham Formulation
@@ -28,7 +29,7 @@ The transformation can be rewritten more simply as
 $$
 F_{i \alpha}=\frac{\psi_\alpha^*\left(\vec{a}_i\right)}{\sqrt{\rho\left(\vec{a}_i\right)}}
 $$ {#eq:FLO_trans}
-The position $\vec{a}_i$ is called the Fermi-orbital descriptor (FOD). It parametrizes each individual electron wavefunction in a system. Using the Lowdin method of orthogonalization
+The position $\vec{a}_i$ is called the Fermi-orbital descriptor (FOD). It parametrizes each individual electron wavefunction in the system. These orbitals are not always orthogonal, so they are orthogonalized using the Lowdin method of orthogonalization. 
 
 ## The NRLMOL Code
 - Describe the code and status of usability 
