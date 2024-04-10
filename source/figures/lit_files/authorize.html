@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- saved from url=(1252)https://amcdn.msftauth.net/me/callgraph?wreply=https%3A%2F%2Fsupport.microsoft.com#code=0.AQQAbrxxyMZ8V0qk6yIwn8NJY_jOrX5tRRFGlIBP_3K4ueIEAEo.AgABAAIAAADnfolhJpSnRYB1SVj-Hgd8AgDs_wUA9P9TLexezKr9hlPpjp5-Bw9UWs7DYVeQrMBnh5zoyJSrGfyt_OISNuJf7k_i-FzBonWeicq-LVeNfD_ZzylqjfZWRoi9KYGvtxbTzhCzNSQDayvaFHeNU8C4bWNbs-yTv2OfZG-i9GJvyn-KSBZZv1xV0FAC20pdwEO9gCZTbV2Z8dOVbdgVtF9i_ehJNZvIP599AFbRyVKDMyfQXcpFXMRDiiV5NEJBjmQmVOOBUH0k9xva2oweWB3RJZh3_cW_We0MlTSOHxVm-VpvodL23u96XXDswAPbusnNFhF_ih5tjQM78ExRhgeL0-nKhLshAWqgxkC2434yRYW7ThAf-ZD528QYABbKHuWFec8ehxdE67YOZaJHns899qCSxCR66Hq5HCnEEt78BrfC8tyCuUKCHxKjhd2932iMXWM_bOEcJ2QQuyL454i07gVwr5aUqpVW2JJ5-Zh2bG1M_cVtpxyqvCtmjMVxgcz2IT_XBXhN0P3aT_3d_Q2V_YRPepAYou72GV5DLV49klC9x7aKBOqQpd2z5l08IqYyNoZskvgOzDAzdUnMxDAdqqkLUWQdndsODxfHyZMtxfBdqkSjMfhcrCPXO-4De3V93JfbXTTNxhnVzYwWovh-dRq0PTL8MB1Ds7awEn7iFnx0dzPXfn3nvbL_Eriq-tl6ry3FYu0tuZlErxLNFPYXuwiVqmMJ4-Hno96Ou8nJtyThh737L_Z0Enu6G7FMJo1Ag6Ut4qCDHkP9m5Jxx3MtJxl9oquQ-Zkf8plMnHN9JYpA3_Rhc465UjuxHNPV5L9-wzcfjbNmhzDwZRxHJtZ3B8osiat1iOacfjwnsN3DKUBcl_f7TskrLOiP_hAndvWfIbAfiNxP_zYX-PtmcDXBVAYl6o6YhbsVM5OniAJ-B3MmPLN8GZq0h4pV9j9dE3n4REebptFuomLWHS_bcu6D72t7lekq65Y7aPbZCFYZaFlh&state=236e5cc7-d439-478e-8a86-27a19753c9f1&session_state=d971212d-4a95-4e64-a4c4-d968969f50fb -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    
+    
+</head>
+<body>
+    <div id="body" role="main">
+        
+<script>
+    var INIT = "INI",
+        SUCCESS = "OK",
+        FAIL = "BAD",
+        CACHE = "CACHE",
+        NOOP = "NOOP";
+    var targetOrigin = "https://support.microsoft.com";
+    var codeRes = {},
+        accountId = "",
+        graphResources = [];
+    var fragmentItems = location.hash.substr(1).split("&");
+    var TimeKey = "_timeOffSet_";
+    for (var i in fragmentItems) {
+        var fragment = fragmentItems[i].split("=");
+        if (fragment.length !== 2) {
+            continue;
+        }
+        codeRes[fragment[0]] = fragment[1];
+    }
+    if (codeRes.error || !codeRes.code || !codeRes.state) {
+                
+        postMessageToParent(codeRes.state, FAIL, {
+            error: codeRes.error,
+            error_description: codeRes.error_description,
+        });
+        
+    } else {
+            
+        window.addEventListener("message", handleCodeVerifier);
+            
+        postMessageToParent(codeRes.state, INIT);
+    }
+        
+    function handleCodeVerifier(e) {
+        try{
+            if (validateArgs(e)) {
+                accountId = e.data.accountId;
+                graphResources = e.data.graphResources;
+                var queryParams = e.data.qParams;
+                queryParams["code"] = codeRes.code;
+                var queryParamsUrl = encodeQueryData(queryParams);
+                var tokenRequest = new XMLHttpRequest();
+                var oauthRequestUrl =
+                    "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+                tokenRequest.open("POST", oauthRequestUrl);
+                tokenRequest.setRequestHeader(
+                    "Content-Type",
+                    "application/x-www-form-urlencoded"
+                );
+                tokenRequest.send(queryParamsUrl);
+                tokenRequest.onload = function () {
+                    if (tokenRequest.status == 200 && tokenRequest.response) {
+                        callGraphAndPostAll(JSON.parse(tokenRequest.response));
+                    }
+                };
+                tokenRequest.onerror = function (err) {
+                    postMessageToParent(codeRes.state, FAIL);
+                };
+            }
+        } catch (err){}
+        function encodeQueryData(queryParamsObj) {
+            var params = [];
+            for (var key in queryParamsObj)
+                params.push(key + "=" + encodeURIComponent(queryParamsObj[key]));
+            return params.join("&");
+        }
+    }
+    function callGraphAndPostAll(tokenResponse) {
+        for(var i in graphResources){
+            callGraphAndPost(tokenResponse, graphResources[i]);
+        }
+    }
+    function callGraphAndPost(tokenResponse, graphReq) {
+        if (!document.all) {
+            var graphRequest = new XMLHttpRequest(); 
+            var uniqueGraphReqUrl = graphReq.resourceUrl + "?state=" + codeRes.state; 
+            graphRequest.open(
+                "GET",
+                uniqueGraphReqUrl
+            );
+            graphRequest.responseType = "arraybuffer";
+            graphRequest.setRequestHeader(
+                "Authorization",
+                "Bearer " + tokenResponse.access_token
+            );
+            if(graphReq.resourceETag){
+                graphRequest.setRequestHeader(
+                    "If-None-Match",
+                    graphReq.resourceETag
+                );
+            }
+            graphRequest.onload = function () {
+                if (graphRequest.status == 200) {
+                    try{
+                        var arrayBuffer = graphRequest.response;
+                        if (arrayBuffer) {
+                            var base64Flag = "data:image/jpeg;base64,";
+                            var imageStr = arrayBufferToBase64(arrayBuffer);
+                            var pictureUrl = base64Flag + imageStr;
+                            var etag = graphRequest.getResponseHeader("ETag");
+                            var type = ""; 
+                            if(graphReq.resourceType){ 
+                                type = graphReq.resourceType; 
+                                cacheToBrowser(window.accountId, graphReq, pictureUrl, etag);
+                            }
+                            else if(graphReq.resourceName){ type = graphReq.resourceName; }
+                            postMessageToParent(codeRes.state, SUCCESS, {
+                                [type]: pictureUrl,
+                                resource: pictureUrl
+                            });
+                        }
+                    }
+                    catch(e){
+                        postMessageToParent(codeRes.state, FAIL)
+                    }
+                }
+                else if (graphRequest.status == 304){
+                    postMessageToParent(codeRes.state, NOOP);
+                }
+            };
+            graphRequest.onerror = function (err) {
+                postMessageToParent(codeRes.state, FAIL);
+            };
+            graphRequest.send(null); 
+        } else {
+            postMessageToParent(codeRes.state, FAIL);
+        }
+    }
+    function cacheToBrowser(hashKey, graphReq, item, etag) {
+        if (window.localStorage) {
+            var type = ""; 
+            if(graphReq.resourceName){ type = graphReq.resourceName; }
+            else if(graphReq.resourceType){ type = graphReq.resourceType; }
+            var cacheId = hashKey +"-"+ type;
+            var itemToCache = JSON.stringify({
+                    key: cacheId,
+                    resourceType: type,
+                    resourceUrl: graphReq.resourceUrl,
+                    resourceETag: etag,
+                    resource: item,
+                    [TimeKey]: Date.now() 
+                });
+            window.localStorage.setItem(cacheId, itemToCache);
+        }
+    }
+    
+    function arrayBufferToBase64(buffer) {
+        var binary = "";
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach(function (b) {
+            binary += String.fromCharCode(b);
+        });
+        return window.btoa(binary);
+    }
+    
+    function postMessageToParent(state, status, payload) {
+        if (!payload) { payload={} };
+        window.parent.postMessage(
+            { accountId: window.accountId, state: state, status: status, payload: payload },
+            window.targetOrigin
+        );
+    }
+    function validateArgs(e){
+        if (e.origin &&
+        codeRes.state == e.data.state &&
+        e.data.accountId &&
+        e.data.qParams &&
+        e.data.graphResources &&
+        e.data.graphResources.length > 0) {
+            for (var i in e.data.graphResources) {
+                if(e.data.graphResources[i].resourceUrl.substring(0,33)!=="https://graph.microsoft.com/v1.0/"){
+                    return false
+                }
+            }
+            return true;
+        };
+        return false;
+    }
+</script>
+
+    </div>
+    
+
+
+</body></html>
